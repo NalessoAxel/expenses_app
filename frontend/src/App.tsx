@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import {
   Card,
   CardContent,
@@ -15,30 +13,22 @@ import { useQuery } from "@tanstack/react-query";
 
 async function fetchTotalSpent() {
   const response = await api.expenses["total-spend"].$get();
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Failed to fetch total spent");
   }
   const data = await response.json();
-  return data.total;
+  return data;
 }
 
 function App() {
-  const query = useQuery({
-    queryKey:[ "get-total-spend"],
-    queryFn: fetchTotalSpent
-    
+  const { isPending, error, data } = useQuery({
+    queryKey: ["get-total-spend"],
+    queryFn: fetchTotalSpent,
   });
-  
 
-  // useEffect(() => {
-  //   async function fetchTotalSpent() {
-  //     const response = await api.expenses["total-spend"].$get();
-  //     console.log(response)
-  //     const data = await response.json();
-  //     setTotalSpent(data.total);
-  //   }
-  //   fetchTotalSpent();
-  // }, []);
+  if (isPending) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Card className="w-[350px] m-auto">
@@ -47,7 +37,7 @@ function App() {
         <CardDescription>The total amount you have spent.</CardDescription>
       </CardHeader>
 
-      <CardContent className="text-4xl font-bold">${totalSpent}</CardContent>
+      <CardContent className="text-4xl font-bold">{isPending ? "..." : data.total}$</CardContent>
       <CardFooter />
     </Card>
   );
