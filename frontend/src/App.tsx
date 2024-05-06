@@ -9,12 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { api } from "@/lib/api";
+
 function App() {
   const [totalSpent, setTotalSpent] = useState(0);
 
   useEffect(() => {
     async function fetchTotalSpent() {
-      const response = await fetch("/api/expenses/total-spend");
+      const response = await api.expenses["total-spend"].$get();
+      console.log(response)
       const data = await response.json();
       setTotalSpent(data.total);
     }
