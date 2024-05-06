@@ -37,7 +37,9 @@ function App() {
         <CardDescription>The total amount you have spent.</CardDescription>
       </CardHeader>
 
-      <CardContent className="text-4xl font-bold">{isPending ? "..." : data.total}$</CardContent>
+      <CardContent className="text-4xl font-bold">
+        {isPending ? "..." : data.total}$
+      </CardContent>
       <CardFooter />
     </Card>
   );
