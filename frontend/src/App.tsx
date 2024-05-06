@@ -11,18 +11,34 @@ import {
 
 import { api } from "@/lib/api";
 
-function App() {
-  const [totalSpent, setTotalSpent] = useState(0);
+import { useQuery } from "@tanstack/react-query";
 
-  useEffect(() => {
-    async function fetchTotalSpent() {
-      const response = await api.expenses["total-spend"].$get();
-      console.log(response)
-      const data = await response.json();
-      setTotalSpent(data.total);
-    }
-    fetchTotalSpent();
-  }, []);
+async function fetchTotalSpent() {
+  const response = await api.expenses["total-spend"].$get();
+  if(!response.ok) {
+    throw new Error("Failed to fetch total spent");
+  }
+  const data = await response.json();
+  return data.total;
+}
+
+function App() {
+  const query = useQuery({
+    queryKey:[ "get-total-spend"],
+    queryFn: fetchTotalSpent
+    
+  });
+  
+
+  // useEffect(() => {
+  //   async function fetchTotalSpent() {
+  //     const response = await api.expenses["total-spend"].$get();
+  //     console.log(response)
+  //     const data = await response.json();
+  //     setTotalSpent(data.total);
+  //   }
+  //   fetchTotalSpent();
+  // }, []);
 
   return (
     <Card className="w-[350px] m-auto">
