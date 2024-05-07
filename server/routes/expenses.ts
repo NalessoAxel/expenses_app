@@ -2,6 +2,7 @@ import { Hono } from "hono";
 
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { getUser } from "../kinde";
 
 const expenseSchema = z.object({
   id: z.number().int().positive().min(1),
@@ -19,7 +20,8 @@ const fakeExpenses: Expense[] = [
 const fakeExpenseSchema = expenseSchema.omit({ id: true });
 
 export const expensesRoutes = new Hono()
-  .get("/", (c) => {
+  .get("/", getUser, async (c) => {
+    const user = await c.var.user;
     return c.json({
       expenses: fakeExpenses,
     });
