@@ -39,7 +39,7 @@ function Expenses() {
 
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>A list of your recent expenses.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
