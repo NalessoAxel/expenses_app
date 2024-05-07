@@ -7,7 +7,7 @@ const Component = () => {
     return (
       <>
         <div>You need to login</div>
-        <a href="/api//login">Login!</a>
+        <a href="/api/login">Login!</a>
       </>
     );
   }
