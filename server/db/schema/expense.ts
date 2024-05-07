@@ -1,3 +1,4 @@
+import { time } from "drizzle-orm/mysql-core";
 import {
   numeric,
   pgTable,
@@ -5,6 +6,7 @@ import {
   varchar,
   text,
   index,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
 export const expenses = pgTable(
@@ -14,6 +16,7 @@ export const expenses = pgTable(
     userId: text("user_id").notNull(),
     name: varchar("name", { length: 256 }),
     amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
   },
   (expenses) => {
     return {
