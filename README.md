@@ -1,4 +1,4 @@
-# fullstack_app
+# expenses_app
 
 To install dependencies:
 
