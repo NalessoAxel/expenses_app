@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
-import type { FieldApi } from "@tanstack/react-form";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/create-expenses")({
   component: CreateExpenses,
@@ -13,12 +13,14 @@ export const Route = createFileRoute("/create-expenses")({
 function CreateExpenses() {
   const form = useForm({
     defaultValues: {
-      title: "",
+      name: "",
       amount: 0,
     },
     onSubmit: async (values) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(values);
+      const res = await api.expenses.$post({ json: values.value });
+      if (!res.ok) {
+        throw new Error(" Failed to create expense");
+      }
     },
   });
 
@@ -37,7 +39,7 @@ function CreateExpenses() {
         <Label htmlFor="title">Title</Label>
 
         <form.Field
-          name="title"
+          name="name"
           children={(field) => (
             <>
               <Input
