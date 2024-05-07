@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 
@@ -33,7 +34,7 @@ export const expensesRoutes = new Hono()
     return c.json({});
   })
   .get("/total-spend", (c) => {
-    const total =  fakeExpenses.reduce((acc, e) => acc + e.amount, 0);
+    const total = fakeExpenses.reduce((acc, e) => acc + e.amount, 0);
 
     return c.json({ total });
   })

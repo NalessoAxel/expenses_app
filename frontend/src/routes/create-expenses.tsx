@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
 
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/create-expenses")({
 });
 
 function CreateExpenses() {
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -21,6 +22,7 @@ function CreateExpenses() {
       if (!res.ok) {
         throw new Error(" Failed to create expense");
       }
+      navigate({ to: "/expenses" });
     },
   });
 
