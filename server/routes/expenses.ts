@@ -25,7 +25,7 @@ const fakeExpenseSchema = expenseSchema.omit({ id: true });
 
 export const expensesRoutes = new Hono()
   .get("/", getUser, async (c) => {
-    const user = await c.var.user;
+    const user = c.var.user;
 
     const expenses = await db
       .select()
@@ -36,7 +36,7 @@ export const expensesRoutes = new Hono()
       expenses: expenses,
     });
   })
-  .post("/", zValidator("json", fakeExpenseSchema), async (c) => {
+  .post("/", getUser, zValidator("json", fakeExpenseSchema), async (c) => {
     const expense = await c.req.valid("json");
     const user = c.var.user;
 
@@ -50,7 +50,7 @@ export const expensesRoutes = new Hono()
 
     c.status(201);
 
-    return c.json({});
+    return c.json(result);
   })
   .get("/total-spend", (c) => {
     const total = fakeExpenses.reduce((acc, e) => acc + +e.amount, 0);
