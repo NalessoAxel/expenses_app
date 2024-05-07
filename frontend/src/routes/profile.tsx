@@ -1,25 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { api } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
+import { userQueryOptions } from "@/lib/api";
 
 export const Route = createFileRoute("/profile")({
   component: Profile,
 });
 
-async function getCurrentUSer() {
-  const res = await api.me.$get();
-  if (!res.ok) {
-    throw new Error("Failed to fetch current user");
-  }
-  const data = await res.json();
-  return data;
-}
-
 function Profile() {
-  const { isPending, data, error } = useQuery({
-    queryKey: ["current-user"],
-    queryFn: getCurrentUSer,
-  });
+  const { isPending, data, error } = useQuery(userQueryOptions);
   return (
     <div>
       {isPending && <div>Loading...</div>}
