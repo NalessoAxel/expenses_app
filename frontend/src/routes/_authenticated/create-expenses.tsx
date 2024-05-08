@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+
 export const Route = createFileRoute("/_authenticated/create-expenses")({
   component: CreateExpenses,
 });
@@ -13,6 +16,7 @@ export const Route = createFileRoute("/_authenticated/create-expenses")({
 function CreateExpenses() {
   const navigate = useNavigate();
   const form = useForm({
+    validatorAdapter: zodValidator,
     defaultValues: {
       name: "",
       amount: "0",
@@ -42,6 +46,9 @@ function CreateExpenses() {
 
         <form.Field
           name="name"
+          validators={{
+            onChange: z.string().min(3),
+          }}
           children={(field) => (
             <>
               <Input
