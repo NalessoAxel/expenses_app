@@ -9,6 +9,8 @@ import { api } from "@/lib/api";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 
+import { createExpenseSchema } from "@server/sharedTypes";
+
 export const Route = createFileRoute("/_authenticated/create-expenses")({
   component: CreateExpenses,
 });
@@ -47,7 +49,7 @@ function CreateExpenses() {
         <form.Field
           name="name"
           validators={{
-            onChange: z.string().min(3),
+            onChange: createExpenseSchema.shape.name,
           }}
           children={(field) => (
             <>
