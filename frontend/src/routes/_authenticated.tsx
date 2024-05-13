@@ -1,4 +1,5 @@
 import { userQueryOptions } from "@/lib/api";
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 const Component = () => {
@@ -7,7 +8,10 @@ const Component = () => {
     return (
       <>
         <div>You need to login</div>
-        <a href="/api/login">Login!</a>
+        <Button>
+          {" "}
+          <a href="/api/login">Login!</a>
+        </Button>
       </>
     );
   }

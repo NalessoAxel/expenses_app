@@ -8,7 +8,7 @@ import { api } from "@/lib/api";
 
 import { zodValidator } from "@tanstack/zod-form-adapter";
 
-import { createExpenseSchema } from "@server/sharedTypes";
+import { createExpensesSchema } from "@server/sharedTypes";
 
 export const Route = createFileRoute("/_authenticated/create-expenses")({
   component: CreateExpenses,
@@ -48,7 +48,7 @@ function CreateExpenses() {
         <form.Field
           name="name"
           validators={{
-            onChange: createExpenseSchema.shape.name,
+            onChange: createExpensesSchema.shape.name,
           }}
           children={(field) => (
             <>
@@ -69,14 +69,22 @@ function CreateExpenses() {
 
         <form.Field
           name="amount"
+          validators={{
+            onChange: createExpensesSchema.shape.amount,
+          }}
           children={(field) => (
-            <Input
-              type="number"
-              name={field.name}
-              value={field.state.value}
-              onBlur={field.handleBlur}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
+            <>
+              <Input
+                type="number"
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+              {field.state.meta.touchedErrors ? (
+                <em>{field.state.meta.touchedErrors}</em>
+              ) : null}
+            </>
           )}
         />
         <form.Subscribe

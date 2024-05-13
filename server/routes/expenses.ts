@@ -9,9 +9,10 @@ import {
   expenses as expensesTable,
   insertExpensesSchema,
 } from "../db/schema/expense";
+
 import { desc, eq, sum, and } from "drizzle-orm";
 
-import { createExpenseSchema } from "../sharedTypes";
+import { createExpensesSchema } from "../sharedTypes";
 
 export const expensesRoutes = new Hono()
   .get("/", getUser, async (c) => {
@@ -28,7 +29,7 @@ export const expensesRoutes = new Hono()
       expenses: expenses,
     });
   })
-  .post("/", getUser, zValidator("json", createExpenseSchema), async (c) => {
+  .post("/", getUser, zValidator("json", createExpensesSchema), async (c) => {
     const expense = await c.req.valid("json");
     const user = c.var.user;
 

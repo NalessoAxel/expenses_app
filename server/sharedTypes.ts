@@ -1,16 +1,6 @@
-import * as z from "zod";
+import { insertExpensesSchema } from "./db/schema/expense";
 
-export const expenseSchema = z.object({
-  id: z.number().int().positive().min(1),
-  name: z
-    .string()
-    .min(3, { message: "Name must be more than 3 characters" })
-    .max(100, { message: "Name must be less than 100 characters" }),
-  amount: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, {
-      message: "Amount must be a valid monetary value",
-    }),
+export const createExpensesSchema = insertExpensesSchema.omit({
+  userId: true,
+  createdAt: true,
 });
-
-export const createExpenseSchema = expenseSchema.omit({ id: true });
