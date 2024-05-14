@@ -1,12 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useForm } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { api } from "@/lib/api";
-
-import { zodValidator } from "@tanstack/zod-form-adapter";
 
 import { createExpensesSchema } from "@server/sharedTypes";
 
@@ -21,6 +21,7 @@ function CreateExpenses() {
     defaultValues: {
       title: "",
       amount: "0",
+      date: new Date().toISOString(),
     },
     onSubmit: async ({ value }) => {
       const res = await api.expenses.$post({ json: value });
@@ -80,6 +81,27 @@ function CreateExpenses() {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+              />
+              {field.state.meta.touchedErrors ? (
+                <em>{field.state.meta.touchedErrors}</em>
+              ) : null}
+            </>
+          )}
+        />
+        <Label htmlFor="date">Date</Label>
+
+        <form.Field
+          name="date"
+          validators={{
+            onChange: createExpensesSchema.shape.date,
+          }}
+          children={(field) => (
+            <>
+              <Calendar
+                mode="single"
+                selected={field.state.value}
+                onSelect={(e) => field.handleChange(e.target.value)}
+                className="rounded-md border"
               />
               {field.state.meta.touchedErrors ? (
                 <em>{field.state.meta.touchedErrors}</em>
