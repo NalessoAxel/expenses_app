@@ -1,10 +1,8 @@
 {
-  "id": "e7a6b661-dad7-49b0-ad87-3ba998f96fb8",
-  "prevId": "1fbe1cec-012a-4ba5-8cf7-923a93fcbf44",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "expenses": {
+    "public.expenses": {
       "name": "expenses",
       "schema": "",
       "columns": {
@@ -57,8 +55,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "e7a6b661-dad7-49b0-ad87-3ba998f96fb8",
+  "prevId": "1fbe1cec-012a-4ba5-8cf7-923a93fcbf44"
 }

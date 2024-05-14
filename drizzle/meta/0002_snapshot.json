@@ -1,4 +1,6 @@
 {
+  "id": "5a8c4d82-1c2f-49fa-97c8-7ad0a7676dba",
+  "prevId": "e7a6b661-dad7-49b0-ad87-3ba998f96fb8",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
@@ -18,8 +20,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "title": {
+          "name": "title",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
@@ -29,6 +31,13 @@
           "type": "numeric(12, 2)",
           "primaryKey": false,
           "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {
@@ -48,10 +57,8 @@
   "enums": {},
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "id": "1fbe1cec-012a-4ba5-8cf7-923a93fcbf44",
-  "prevId": "00000000-0000-0000-0000-000000000000"
+    "tables": {}
+  }
 }

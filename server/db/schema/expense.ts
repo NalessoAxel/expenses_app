@@ -17,7 +17,7 @@ export const expenses = pgTable(
   {
     id: serial("id").primaryKey(),
     userId: text("user_id").notNull(),
-    name: varchar("name", { length: 256 }),
+    title: varchar("title", { length: 256 }),
     amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
     createdAt: timestamp("created_at").defaultNow(),
   },
@@ -30,7 +30,7 @@ export const expenses = pgTable(
 
 // Schema for inserting a user - can be used to validate API requests
 export const insertExpensesSchema = createInsertSchema(expenses, {
-  name: z.string().min(3, { message: "Name must be more than 3 characters" }),
+  title: z.string().min(3, { message: "Title must be more than 3 characters" }),
   amount: z.string().regex(/^\d+(\.\d{1,2})?$/, {
     message: "Amount must be a valid monetary value",
   }),

@@ -19,7 +19,7 @@ function CreateExpenses() {
   const form = useForm({
     validatorAdapter: zodValidator,
     defaultValues: {
-      name: "",
+      title: "",
       amount: "0",
     },
     onSubmit: async ({ value }) => {
@@ -46,14 +46,14 @@ function CreateExpenses() {
         <Label htmlFor="title">Title</Label>
 
         <form.Field
-          name="name"
+          name="title"
           validators={{
-            onChange: createExpensesSchema.shape.name,
+            onChange: createExpensesSchema.shape.title,
           }}
           children={(field) => (
             <>
               <Input
-                name={field.name}
+                name={field.title}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}

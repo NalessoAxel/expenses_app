@@ -60,7 +60,7 @@ function Expenses() {
             ))
           : data?.expenses.map((expense) => (
               <TableRow key={expense.id}>
-                <TableCell className="capitalize">{expense.name}</TableCell>
+                <TableCell className="capitalize">{expense.title}</TableCell>
                 <TableCell className="text-right ">
                   {expense.amount}
                   <span className="pl-2">$</span>
