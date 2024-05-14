@@ -32,6 +32,8 @@ function CreateExpenses() {
     },
   });
 
+  console.log(form);
+
   return (
     <div className="flex flex-col items-center justify-center h-full ">
       <h1 className="text-2xl font-bold">Create Expenses</h1>
@@ -99,8 +101,10 @@ function CreateExpenses() {
             <>
               <Calendar
                 mode="single"
-                selected={field.state.value}
-                onSelect={(e) => field.handleChange(e.target.value)}
+                selected={new Date(field.state.value)}
+                onSelect={(date) =>
+                  field.handleChange((date ?? new Date()).toISOString())
+                }
                 className="rounded-md border"
               />
               {field.state.meta.touchedErrors ? (
