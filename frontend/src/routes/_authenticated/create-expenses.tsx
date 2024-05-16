@@ -56,7 +56,7 @@ function CreateExpenses() {
           children={(field) => (
             <>
               <Input
-                name={field.title}
+                name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
