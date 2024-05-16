@@ -25,3 +25,9 @@ and then do the migration command
 ```bash
 bun migrate.ts
 ```
+
+Run drizzle-studio locally
+
+```bash
+ bunx drizzle-kit studio
+```
