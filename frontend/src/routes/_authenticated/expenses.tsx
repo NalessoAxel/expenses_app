@@ -11,39 +11,28 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { api } from "@/lib/api";
 
 import { useQuery } from "@tanstack/react-query";
+
+import { getAllExpensesQuery } from "@/lib/api";
 
 export const Route = createFileRoute("/_authenticated/expenses")({
   component: Expenses,
 });
 
-async function getAllExpenses() {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await api.expenses.$get();
-  if (!response.ok) {
-    throw new Error("Failed to fetch all expenses");
-  }
-  const data = await response.json();
-  return data;
-}
-
 function Expenses() {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["get-all-expenses"],
-    queryFn: getAllExpenses,
-  });
+  const { isPending, error, data } = useQuery(getAllExpensesQuery);
 
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Table>
+    <Table className="max-w-2xl mx-auto">
       <TableCaption>A list of your recent expenses.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead>Amount</TableHead>
+          <TableHead>Date</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -56,15 +45,19 @@ function Expenses() {
                 <TableCell>
                   <Skeleton className="h-4" />
                 </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4" />
+                </TableCell>
               </TableRow>
             ))
           : data?.expenses.map((expense) => (
               <TableRow key={expense.id}>
                 <TableCell className="capitalize">{expense.title}</TableCell>
-                <TableCell className="text-right ">
+                <TableCell>
                   {expense.amount}
                   <span className="pl-2">$</span>
                 </TableCell>
+                <TableCell className="capitalize">{expense.date}</TableCell>
               </TableRow>
             ))}
       </TableBody>
