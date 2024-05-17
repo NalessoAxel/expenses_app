@@ -23,10 +23,17 @@ export const Route = createFileRoute("/_authenticated/expenses")({
 function Expenses() {
   const { isPending, error, data } = useQuery(getAllExpensesQuery);
 
+  const { data: loadingCreateExpense } = useQuery({
+    queryKey: ["loading-create-expense"],
+  });
+
+  console.log(loadingCreateExpense);
+
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Table className="max-w-2xl mx-auto">
+      {JSON.stringify(loadingCreateExpense)}
       <TableCaption>A list of your recent expenses.</TableCaption>
       <TableHeader>
         <TableRow>
