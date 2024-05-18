@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+
 import {
   createExpense,
   getAllExpensesQuery,
@@ -48,8 +50,10 @@ function CreateExpenses() {
           ...existingExpenses,
           expenses: [...existingExpenses.expenses, newExpense],
         });
+
+        toast.success("Expense created successfully");
       } catch (error) {
-        //error state
+        toast.error("Failed to create expense");
       } finally {
         queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {});
       }

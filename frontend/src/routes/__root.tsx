@@ -4,6 +4,8 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import { type QueryClient } from "@tanstack/react-query";
 
 interface MyRouterContext {
@@ -16,11 +18,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function Navbar() {
   return (
-    <div className="flex justify-between max-w-2xl m-auto items-baseline p-2">
+    <div className="flex items-baseline justify-between max-w-2xl p-2 m-auto">
       <Link to="/" className="[&.active]:font-bold">
         <h1 className="text-2xl">Expenses Tracker</h1>
       </Link>
-      <div className="p-2 flex gap-2">
+      <div className="flex gap-2 p-2">
         <Link to="/expenses" className="[&.active]:font-bold">
           Expenses
         </Link>
@@ -47,6 +49,8 @@ function Root() {
       <Navbar />
       <hr />
       <Outlet />
+
+      <Toaster />
     </>
   );
 }

@@ -2,7 +2,7 @@ import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
 import { hc } from "hono/client";
 
-import { createExpensesSchema, type CreateExpense } from "@server/sharedTypes";
+import { type CreateExpense } from "@server/sharedTypes";
 
 const client = hc<ApiRoutes>("/");
 
@@ -50,10 +50,19 @@ export async function createExpense({ value }: { value: CreateExpense }) {
 }
 
 export const loadingCreateExpenseQueryOptions = queryOptions<{
-  expense?: typeof createExpensesSchema;
+  expense?: CreateExpense;
 }>({
   queryKey: ["loading-create-expense"],
   queryFn: async () => {
     return {};
   },
 });
+
+export async function deleteExpense({ id }: { id: number }) {
+  const res = await api.expenses[":id{[0-9]+}"].$delete({
+    param: { id: id.toString() },
+  });
+  if (!res.ok) {
+    throw new Error("Server error, failed to delete expense");
+  }
+}
