@@ -14,7 +14,10 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getAllExpensesQuery } from "@/lib/api";
+import {
+  getAllExpensesQuery,
+  loadingCreateExpenseQueryOptions,
+} from "@/lib/api";
 
 export const Route = createFileRoute("/_authenticated/expenses")({
   component: Expenses,
@@ -23,17 +26,14 @@ export const Route = createFileRoute("/_authenticated/expenses")({
 function Expenses() {
   const { isPending, error, data } = useQuery(getAllExpensesQuery);
 
-  const { data: loadingCreateExpense } = useQuery({
-    queryKey: ["loading-create-expense"],
-  });
-
-  console.log(loadingCreateExpense);
+  const { data: loadingCreateExpense } = useQuery(
+    loadingCreateExpenseQueryOptions
+  );
 
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Table className="max-w-2xl mx-auto">
-      {JSON.stringify(loadingCreateExpense)}
       <TableCaption>A list of your recent expenses.</TableCaption>
       <TableHeader>
         <TableRow>

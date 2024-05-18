@@ -2,7 +2,7 @@ import { type ApiRoutes } from "@server/app";
 import { queryOptions } from "@tanstack/react-query";
 import { hc } from "hono/client";
 
-import { type CreateExpense } from "@server/sharedTypes";
+import { createExpensesSchema, type CreateExpense } from "@server/sharedTypes";
 
 const client = hc<ApiRoutes>("/");
 
@@ -48,3 +48,12 @@ export async function createExpense({ value }: { value: CreateExpense }) {
   const newExpenses = await res.json();
   return newExpenses;
 }
+
+export const loadingCreateExpenseQueryOptions = queryOptions<{
+  expense?: typeof createExpensesSchema;
+}>({
+  queryKey: ["loading-create-expense"],
+  queryFn: async () => {
+    return {};
+  },
+});

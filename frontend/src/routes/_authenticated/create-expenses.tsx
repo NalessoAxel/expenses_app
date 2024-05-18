@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createExpense, getAllExpensesQuery } from "@/lib/api";
+import {
+  createExpense,
+  getAllExpensesQuery,
+  loadingCreateExpenseQueryOptions,
+} from "@/lib/api";
 
 import { createExpensesSchema } from "@server/sharedTypes";
 
@@ -34,7 +38,9 @@ function CreateExpenses() {
 
       //loading state
 
-      queryClient.setQueryData(["loading-create-expense"], { expense: value });
+      queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {
+        expense: value,
+      });
 
       try {
         const newExpense = await createExpense({ value });
@@ -45,7 +51,7 @@ function CreateExpenses() {
       } catch (error) {
         //error state
       } finally {
-        queryClient.setQueryData(["loading-create-expense"], {});
+        queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {});
       }
     },
   });
@@ -55,7 +61,7 @@ function CreateExpenses() {
       <h1 className="text-2xl font-bold">Create Expenses</h1>
 
       <form
-        className="flex gap-4 flex-col"
+        className="flex flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -123,7 +129,7 @@ function CreateExpenses() {
                 onSelect={(date) =>
                   field.handleChange((date ?? new Date()).toISOString())
                 }
-                className="rounded-md border"
+                className="border rounded-md"
               />
               {field.state.meta.touchedErrors ? (
                 <em>{field.state.meta.touchedErrors}</em>
