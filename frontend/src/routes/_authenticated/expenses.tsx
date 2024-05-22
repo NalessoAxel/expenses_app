@@ -45,6 +45,7 @@ function Expenses() {
           <TableHead>Name</TableHead>
           <TableHead>Amount</TableHead>
           <TableHead>Date</TableHead>
+          <TableHead>Category</TableHead>
           <TableHead>Delete</TableHead>
         </TableRow>
       </TableHeader>
