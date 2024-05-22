@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <div className="flex items-baseline justify-between max-w-2xl p-2 m-auto">
       <Link to="/" className="[&.active]:font-bold">
-        <h1 className="text-2xl">Expenses Tracker</h1>
+        <h1 className="text-2xl">BudgetBuddy</h1>
       </Link>
       <div className="flex gap-2 p-2">
         <Link to="/expenses" className="[&.active]:font-bold">
@@ -29,10 +29,6 @@ function Navbar() {
 
         <Link to="/create-expenses" className="[&.active]:font-bold">
           Create
-        </Link>
-
-        <Link to="/about" className="[&.active]:font-bold">
-          About
         </Link>
 
         <Link to="/profile" className="[&.active]:font-bold">

@@ -43,9 +43,13 @@ function Expenses() {
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
+
           <TableHead>Amount</TableHead>
+
           <TableHead>Date</TableHead>
+
           <TableHead>Category</TableHead>
+
           <TableHead>Delete</TableHead>
         </TableRow>
       </TableHeader>
@@ -55,16 +59,21 @@ function Expenses() {
             <TableCell>
               <Skeleton className="h-4" />
             </TableCell>
+
             <TableCell className="capitalize">
               {loadingCreateExpense?.expense.title}
             </TableCell>
+
             <TableCell>
               {loadingCreateExpense?.expense.amount}
               <span className="pl-2">$</span>
             </TableCell>
+
             <TableCell className="capitalize">
               {loadingCreateExpense?.expense.date}
             </TableCell>
+
+            <TableCell>{loadingCreateExpense?.expense.category}</TableCell>
             <TableCell>
               <Skeleton className="h-4" />
             </TableCell>
@@ -76,9 +85,11 @@ function Expenses() {
                 <TableCell>
                   <Skeleton className="h-4" />
                 </TableCell>
+
                 <TableCell>
                   <Skeleton className="h-4" />
                 </TableCell>
+
                 <TableCell>
                   <Skeleton className="h-4" />
                 </TableCell>
@@ -87,11 +98,16 @@ function Expenses() {
           : data?.expenses.map((expense) => (
               <TableRow key={expense.id}>
                 <TableCell className="capitalize">{expense.title}</TableCell>
+
                 <TableCell>
                   {expense.amount}
                   <span className="pl-2">$</span>
                 </TableCell>
+
                 <TableCell className="capitalize">{expense.date}</TableCell>
+
+                <TableCell className="capitalize">{expense.category}</TableCell>
+
                 <TableCell>
                   <ExpenseDeleteButton id={expense.id} />
                 </TableCell>

@@ -29,6 +29,7 @@ function CreateExpenses() {
     defaultValues: {
       title: "",
       amount: "0",
+      category: "",
       date: new Date().toISOString(),
     },
 
@@ -118,6 +119,30 @@ function CreateExpenses() {
             </>
           )}
         />
+
+        <Label htmlFor="category">Category</Label>
+
+        <form.Field
+          name="category"
+          validators={{
+            onChange: createExpensesSchema.shape.category,
+          }}
+          children={(field) => (
+            <>
+              <Input
+                type="text"
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+              {field.state.meta.touchedErrors ? (
+                <em>{field.state.meta.touchedErrors}</em>
+              ) : null}
+            </>
+          )}
+        />
+
         <Label htmlFor="date">Date</Label>
 
         <form.Field
